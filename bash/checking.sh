@@ -115,5 +115,6 @@ fi
 
 
 #offload to remote server
-ssh -i $PRIVATE_KEY -p $PORT $USERNAME@$IP "wget -O /tmp/2.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/2.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/2.sh"
+echo -e "\n${color_magenta}Attempting SSH connection to $USERNAME_IP.......${color_reset}"
+ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "wget -qq -O /tmp/2.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/2.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/2.sh"
 
