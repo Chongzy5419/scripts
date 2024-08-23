@@ -115,4 +115,5 @@ fi
 
 
 #offload to remote server
-ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP  "echo '$SUDO_PASSWORD' | sudo -S bash ./v4.sh"
+ssh -i $PRIVATE_KEY -p $PORT $USERNAME@$IP "wget -O /tmp/2.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/2.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/2.sh"
+
