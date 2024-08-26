@@ -128,7 +128,6 @@ distro=$(ssh -i "$PRIVATE_KEY" -p "$PORT" "$USERNAME_IP" "grep '^ID=' /etc/os-re
 echo -e "Detected Distro: ${color_cyan}${distro}${color_reset}"
 
 #EXECUTING ON REMOTE SERVER
-echo -e "\n${color_magenta}Executing Script on Remote Server $USERNAME_IP.......${color_reset}"
 if [ "$distro" == "rocky" ]; then
     echo "This machine is running Rocky."
     
