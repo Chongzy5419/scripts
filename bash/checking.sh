@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo ''
 export TERM=xterm-256color
 
 # Color settings
@@ -42,7 +41,6 @@ if [[ $SSH_CONNECTIVITY != *"SSH connection successful"* ]]; then
   echo "${color_red}Error: Unable to establish SSH connection to $USERNAME_IP. Please check the IP, port, and private key.${color_reset}"
   exit 1
 fi
-
 echo "${color_green}SSH connection successful.${color_reset}"
 
 
@@ -80,6 +78,8 @@ for PORTS in "${PORTS[@]}"
 do
   nc -zv $TARGET_IP $PORTS 2>&1 | grep "succeeded" | awk '{print $6 " " $5 " "$7 " is open"}'
 done
+
+
 
 # FIFTH TESTING WEBSITE AVAILABILITY
 echo -e "\n${color_magenta}5: Attempting HTTP connection to $USERNAME_IP.......${color_reset}"
