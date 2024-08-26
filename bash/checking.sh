@@ -37,9 +37,9 @@ TARGET_IP=$(echo $USERNAME_IP | awk -F'@' '{print $2}')
 echo -e "\n${color_magenta}1: Testing connectivity to $TARGET_IP...${color_reset}"
 ping -c 3 -W 3 $TARGET_IP > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "Ping to IP ${TARGET_IP} ${color_green}Success${color_reset}"
+    echo "Ping to IP $TARGET_IP ${color_green}Success${color_reset}"
 else
-    echo "Ping to IP ${TARGET_IP} ${color_red}Failed${color_reset}"
+    echo "Ping ${color_red}Failed${color_reset}"
     exit
 fi
 
@@ -48,7 +48,7 @@ if [[ $SSH_CONNECTIVITY != *"SSH connection successful"* ]]; then
   echo "${color_red}Error: Unable to establish SSH connection to $USERNAME_IP. Please check the IP, port, and private key.${color_reset}"
   exit 1
 fi
-echo "${color_green}SSH connection successful.${color_reset}"
+echo "${color_green}SSH connection ${color_green}successful.${color_reset}"
 
 
 
