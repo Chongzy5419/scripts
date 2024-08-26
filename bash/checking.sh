@@ -114,7 +114,28 @@ else
 fi
 
 
-#offload to remote server
-echo -e "\n${color_magenta}Attempting SSH connection to $USERNAME_IP.......${color_reset}"
-ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "wget -qq -O /tmp/2.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/2.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/2.sh"
+
+#EXECUTING ON REMOTE SERVER
+echo -e "\n${color_magenta}Determining Linux Distro on Remote Server $USERNAME_IP....... ${color_reset}"
+distro=$(ssh -i "$PRIVATE_KEY" -p "$PORT" "$USERNAME_IP" << 'EOF'
+# Get the distribution name from /etc/os-release
+grep "^ID=" /etc/os-release | cut -d'=' -f2 | tr -d '"'
+EOF
+)
+echo -e "\nDetected Distro: ${color_cyan}${distro}${color_reset}"
+
+#EXECUTING ON REMOTE SERVER
+echo -e "\n${color_magenta}Executing Script on Remote Server $USERNAME_IP.......${color_reset}"
+if [ "$distro" == "rocky" ]; then
+    echo "This machine is running Rocky."
+    
+elif [ "$distro" == "ubuntu" ]; then
+    echo "This machine is running Ubuntu."
+    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "wget -qq -O /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/ubuntu.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh"
+
+
+else
+    echo "This machine is running a different distribution: $distro"
+fi
+
 
