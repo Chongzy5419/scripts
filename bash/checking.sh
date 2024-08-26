@@ -37,7 +37,7 @@ TARGET_IP=$(echo $USERNAME_IP | awk -F'@' '{print $2}')
 echo -e "\n${color_magenta}1: Testing connectivity to $TARGET_IP...${color_reset}"
 ping -c 3 -W 3 $TARGET_IP > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "Ping to IP $TARGET_IP ${color_green}Success${color_reset}"
+    echo "Ping ${color_green}Success${color_reset}"
 else
     echo "Ping ${color_red}Failed${color_reset}"
     exit
@@ -133,7 +133,7 @@ if [ "$distro" == "rocky" ]; then
     echo "This machine is running Rocky."
     
 elif [ "$distro" == "ubuntu" ]; then
-    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "wget -qq -O /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/ubuntu.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh"
+    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "wget -qq -O /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/ubuntu.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh 2>/dev/null"
 
 else
     echo "This machine is running a different distribution: $distro"
