@@ -69,9 +69,9 @@ echo -e "\n${color_magenta}3: Checking SSH config on $TARGET_IP...${color_reset}
 
 PASSWORD_AUTH=$(ssh -o PreferredAuthentications=password -o ConnectTimeout=5 $USERNAME_IP -p $PORT "exit" 2>&1)
 if [[ $PASSWORD_AUTH == *"password"* ]]; then
-  echo "${color_green}SSH password authentication is DISABLED on $TARGET_IP.${color_reset}" 
-else
   echo "${color_yellow}Warning: SSH password authentication is ENABLED on $TARGET_IP.${color_reset}"
+else
+  echo "${color_green}SSH password authentication is DISABLED on $TARGET_IP.${color_reset}" 
 fi
 
 
