@@ -108,11 +108,11 @@ check_ssl_cert_validity() {
     if [ "$issuer" == "$subject" ]; then
         echo "                      ${color_yellow}This is a self-signed certificate.${color_reset}"
     else
-        echo "                      ${color_cyan}This is not a self-signed certificate.${color_reset}"
+        echo "                      ${color_green}This is a CA signed certificate.${color_reset}"
     fi
 
     #Use the local CA bundle to verify the certificate
-    if openssl verify -CAfile /etc/ssl/certs/ca-certificates.crt "$cert_path" > /dev/null 2>&1; then
+    if openssl verify -CAfile /etc/ssl/certs/ca-bundle.crt "$cert_path" > /dev/null 2>&1; then
         echo "                      ${color_cyan}The certificate is trusted by the local machine.${color_reset}"
     else
         echo "                      ${color_red}The certificate is NOT trusted by the local machine.${color_reset}"
