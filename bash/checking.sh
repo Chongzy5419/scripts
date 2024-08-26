@@ -115,13 +115,9 @@ fi
 
 
 
-#EXECUTING ON REMOTE SERVER
+#DETERMINING DISTRO
 echo -e "\n${color_magenta}Determining Linux Distro on Remote Server $USERNAME_IP....... ${color_reset}"
-distro=$(ssh -i "$PRIVATE_KEY" -p "$PORT" "$USERNAME_IP" << 'EOF'
-# Get the distribution name from /etc/os-release
-grep "^ID=" /etc/os-release | cut -d'=' -f2 | tr -d '"'
-EOF
-)
+distro=$(ssh -i "$PRIVATE_KEY" -p "$PORT" "$USERNAME_IP" "grep '^ID=' /etc/os-release | cut -d'=' -f2 | tr -d '\"'")
 echo -e "\nDetected Distro: ${color_cyan}${distro}${color_reset}"
 
 #EXECUTING ON REMOTE SERVER
