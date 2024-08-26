@@ -93,9 +93,12 @@ echo -e "\n${color_magenta}5: Attempting HTTP connection to $USERNAME_IP.......$
 
 HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://$TARGET_IP)
 if [ "$HTTP_STATUS" -eq 200 ]; then
-  echo -e "${color_green}HTTP connection successful.${color_reset}"
-else
-  echo -e "${color_red}HTTP connection unsuccessful.${color_reset}"
+  echo -e "${color_green}HTTP code:$HTTP_STATUS connection successful.${color_reset}"
+
+elif [ "$HTTP_STATUS" -eq 403 ]; then 
+  echo -e "${color_yellow}HTTP code:$HTTP_STATUS  connection forbidden, website not setup completely${color_reset}"
+else 
+  echo -e "${color_red}HTTP code:$HTTP_STATUS  connection unsuccessful.${color_reset}"
 fi
 
 HTTPS_STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://$TARGET_IP)
@@ -129,7 +132,7 @@ echo -e "Detected Distro: ${color_cyan}${distro}${color_reset}"
 
 #EXECUTING ON REMOTE SERVER
 if [ "$distro" == "rocky" ]; then
-    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "curl -s -o /tmp/rocky.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/rocky.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh 2>/dev/null" && rm /tmp/rocky.sh
+    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "curl -s -o /tmp/rocky.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/rocky.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/rocky.sh 2>/dev/null" && rm /tmp/rocky.sh
 
     
 elif [ "$distro" == "ubuntu" ]; then
