@@ -55,7 +55,7 @@ fi
 
 #  Check if PHP module is enabled in Apache
 PHP_CONF_FILE="/etc/httpd/conf.d/php.conf"
-PHP_FPM_SERVICE="php-fpm"
+PHP_FPM_SERVICE="php-fpm.service"
 if [ -f "$PHP_CONF_FILE" ] && systemctl list-unit-files | grep -q "$PHP_FPM_SERVICE" && systemctl is-active --quiet "$PHP_FPM_SERVICE"; then
     echo "PHP module:     ${color_red}PHP module is not enabled in Apache.${color_reset}"
 else
