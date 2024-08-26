@@ -133,7 +133,6 @@ elif [ "$distro" == "ubuntu" ]; then
     echo "This machine is running Ubuntu."
     ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "wget -qq -O /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/ubuntu.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh"
 
-
 else
     echo "This machine is running a different distribution: $distro"
 fi
