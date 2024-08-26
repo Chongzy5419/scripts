@@ -107,13 +107,6 @@ check_ssl_cert_validity() {
     else
         echo "                      ${color_cyan}This is not a self-signed certificate.${color_reset}"
     fi
-
-    #Use the local CA bundle to verify the certificate
-    if openssl verify -CAfile /etc/ssl/certs/ca-certificates.crt "$cert_path" > /dev/null 2>&1; then
-        echo "                      ${color_cyan}The certificate is trusted by the local machine.${color_reset}"
-    else
-        echo "                      ${color_red}The certificate is NOT trusted by the local machine.${color_reset}"
-    fi
 }
 
 #  MAIN Function to extract VirtualHost information and check for WordPress installation
