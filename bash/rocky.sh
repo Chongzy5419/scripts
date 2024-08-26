@@ -1,7 +1,5 @@
 #!/bin/bash
 export TERM=xterm-256color
-echo $TERM
-
 
 # Color settings in subshell
 color_red=$(tput setaf 1)  # Red

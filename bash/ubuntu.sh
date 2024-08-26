@@ -1,7 +1,6 @@
 #!/bin/bash
 export TERM=xterm-256color
 
-
 # Color settings in subshell
 color_red=$(tput setaf 1)  # Red
 color_green=$(tput setaf 2)  # Green

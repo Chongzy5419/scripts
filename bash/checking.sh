@@ -129,7 +129,6 @@ echo -e "Detected Distro: ${color_cyan}${distro}${color_reset}"
 
 #EXECUTING ON REMOTE SERVER
 if [ "$distro" == "rocky" ]; then
-    echo "This machine is running Rocky."
     ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "curl -s -o /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/rocky.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh 2>/dev/null"
 
     
