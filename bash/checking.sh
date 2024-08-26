@@ -38,7 +38,6 @@ echo -e "\n${color_magenta}1: Testing connectivity to $TARGET_IP...${color_reset
 ping -c 3 -W 3 $TARGET_IP > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "Ping to IP $TARGET_IP ${color_green}Success${color_reset}"
-    echo $TARGET_IP
 else
     echo "Ping ${color_red}Failed${color_reset}"
     exit
