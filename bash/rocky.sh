@@ -17,10 +17,7 @@ color_reset=$(tput sgr0)
 echo -e "\n${color_magenta}6: Checking for versions of installed apt packages${color_reset}"
 
 #    Check if Apache is installed and get its version
-apache_version=$(apache2 -v 2>/dev/null | grep "Server version" | awk '{print $3}' | cut -d'/' -f2)
-if [ -z "$apache_version" ]; then
     apache_version=$(httpd -v 2>/dev/null | grep "Server version" | awk '{print $3}' | cut -d'/' -f2)
-fi
 if [ -z "$apache_version" ]; then
     echo "Apache version: ${color_red}Apache is not installed or could not be detected.${color_reset}"
     exit 1
