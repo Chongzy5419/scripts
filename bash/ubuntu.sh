@@ -201,7 +201,6 @@ if command -v ntpd >/dev/null 2>&1; then
     echo "${color_green}NTP is installed.${color_reset}"
 else
     echo "${color_red}NTP is not installed.${color_reset}"
-    exit 1
 fi
 
 # Check NTP service status

@@ -97,6 +97,10 @@ if [ "$HTTP_STATUS" -eq 200 ]; then
 
 elif [ "$HTTP_STATUS" -eq 403 ]; then 
   echo -e "${color_yellow}HTTP code:$HTTP_STATUS  connection forbidden, website not setup completely${color_reset}"
+
+elif [ "$HTTP_STATUS" -eq 301 ]; then 
+  echo -e "${color_green}HTTP code:$HTTP_STATUS  redirected to https${color_reset}"
+
 else 
   echo -e "${color_red}HTTP code:$HTTP_STATUS  connection unsuccessful.${color_reset}"
 fi
@@ -111,7 +115,7 @@ if [ "$HTTPS_STATUS" -eq 200 ]; then
     echo -e "${color_yellow}HTTPS connection successful, invalid certificate.${color_reset}"
   fi
   
-elif [ "$HTTPS_STATUS" -eq 000 ]; then
+elif [ "$HTTPS_STATUS" -eq 000 ] || [ "$HTTPS_STATUS" -eq 302 ]; then
   SELF_SIGNED_CERT=$(curl -vI https://$TARGET_IP 2>&1 | grep "self-signed")
 
   if [ -n "$SELF_SIGNED_CERT" ]; then
