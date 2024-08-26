@@ -33,8 +33,15 @@ TARGET_IP=$(echo $USERNAME_IP | awk -F'@' '{print $2}')
 
 
 
-# FIRST TEST SSH CONNECTIVITY
-echo -e "\n${color_magenta}1: Testing SSH connectivity to $TARGET_IP...${color_reset}"
+# FIRST TEST CONNECTIVITY
+echo -e "\n${color_magenta}1: Testing connectivity to $TARGET_IP...${color_reset}"
+ping -c 3 -W 3 $TARGET_IP > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "Ping to IP ${TARGET_IP} ${color_green}Success${color_reset}"
+else
+    echo "Ping to IP ${TARGET_IP} ${color_red}Failed${color_reset}"
+    exit
+fi
 
 SSH_CONNECTIVITY=$(ssh -i $PRIVATE_KEY -p $PORT -o BatchMode=yes -o ConnectTimeout=3 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USERNAME_IP "echo 'SSH connection successful'" 2>&1)
 if [[ $SSH_CONNECTIVITY != *"SSH connection successful"* ]]; then
@@ -126,7 +133,6 @@ if [ "$distro" == "rocky" ]; then
     echo "This machine is running Rocky."
     
 elif [ "$distro" == "ubuntu" ]; then
-    echo "This machine is running Ubuntu."
     ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "wget -qq -O /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/ubuntu.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh"
 
 else
