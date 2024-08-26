@@ -51,7 +51,7 @@ fi
 echo -e "\n${color_magenta}7: Checking for installed apache modules${color_reset}"
 
 #    Check if SSL module is enabled in Apache
-ssl_module=$(apache2ctl -M 2>/dev/null | grep -i 'ssl_module')
+ssl_module=$(httpd -M 2>/dev/null | grep -i 'ssl_module')
 if [ -z "$ssl_module" ]; then
     echo "SSL module:     ${color_red}SSL module is not enabled in Apache.${color_reset}"
 else
@@ -59,12 +59,14 @@ else
 fi
 
 #  Check if PHP module is enabled in Apache
-php_module=$(apache2ctl -M 2>/dev/null | grep -i 'php_module')
-if [ -z "$php_module" ]; then
+PHP_CONF_FILE="/etc/httpd/conf.d/php.conf"
+PHP_FPM_SERVICE="php-fpm"
+if [ -f "$PHP_CONF_FILE" ] && systemctl list-unit-files | grep -q "$PHP_FPM_SERVICE" && systemctl is-active --quiet "$PHP_FPM_SERVICE"; then
     echo "PHP module:     ${color_red}PHP module is not enabled in Apache.${color_reset}"
 else
     echo "PHP module:     ${color_green}Enabled${color_reset}"
 fi
+
 
 
 #EIGHTH PART CHECK FOR APACHE CONTENT
@@ -191,7 +193,7 @@ extract_vhost_info() {
 }
 
 #    Directory where Apache enabled Virtual Host files are stored
-vhost_dir="/etc/apache2/sites-enabled"
+vhost_dir="/etc/httpd/conf.d"
 
 #    Loop through all enabled virtual host files
 for vhost_file in "$vhost_dir"/*.conf; do
