@@ -110,21 +110,21 @@ if [ "$HTTPS_STATUS" -eq 200 ]; then
   CERTIFICATE_VALIDITY=$(curl -vI https://$TARGET_IP 2>&1 | grep "expire date")
   
   if [ -n "$CERTIFICATE_VALIDITY" ]; then
-    echo -e "${color_green}HTTPS connection successful, valid certificate.${color_reset}"
+    echo -e "${color_green}HTTP code:$HTTP_STATUS connection successful, valid certificate.${color_reset}"
   else
-    echo -e "${color_yellow}HTTPS connection successful, invalid certificate.${color_reset}"
+    echo -e "${color_yellow}HTTP code:$HTTP_STATUS connection successful, invalid certificate.${color_reset}"
   fi
   
 elif [ "$HTTPS_STATUS" -eq 000 ] || [ "$HTTPS_STATUS" -eq 302 ]; then
   SELF_SIGNED_CERT=$(curl -vI https://$TARGET_IP 2>&1 | grep "self-signed")
 
   if [ -n "$SELF_SIGNED_CERT" ]; then
-    echo -e "${color_yellow}HTTPS connection successful, self-signed certificate.${color_reset}"
+    echo -e "${color_yellow}HTTP code:$HTTP_STATUS connection successful, self-signed certificate.${color_reset}"
   else
-    echo -e "${color_red}HTTPS connection unsuccessful.${color_reset}"
+    echo -e "${color_green}HTTP code:$HTTP_STATUS connection successful.${color_reset}"
   fi
 else
-  echo -e "${color_red}HTTPS connection unsuccessful.${color_reset}"
+  echo -e "${color_red}HTTP code:$HTTP_STATUS connection unsuccessful.${color_reset}"
 fi
 
 
@@ -136,11 +136,11 @@ echo -e "Detected Distro: ${color_cyan}${distro}${color_reset}"
 
 #EXECUTING ON REMOTE SERVER
 if [ "$distro" == "rocky" ]; then
-    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "curl -s -o /tmp/rocky.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/rocky.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/rocky.sh 2>/dev/null" && rm /tmp/rocky.sh
+    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "curl -s -o /tmp/rocky.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/rocky.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/rocky.sh 2>/dev/null"
 
     
 elif [ "$distro" == "ubuntu" ]; then
-    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "curl -s -o /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/ubuntu.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh 2>/dev/null" && rm /tmp/ubuntu.sh
+    ssh -i $PRIVATE_KEY -p $PORT $USERNAME_IP "curl -s -o /tmp/ubuntu.sh https://raw.githubusercontent.com/Chongzy5419/scripts/main/bash/ubuntu.sh && echo '$SUDO_PASSWORD' | sudo -S bash /tmp/ubuntu.sh 2>/dev/null" 
 
 else
     echo "This machine is running a different distribution: $distro"
