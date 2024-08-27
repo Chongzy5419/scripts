@@ -25,7 +25,7 @@ prompt_for_input() {
 # Prompt for username@ip, private key path, and sudo password if not provided
 USERNAME_IP=${1:-$(prompt_for_input "Enter target machine " "ips1@server")}
 PRIVATE_KEY=${2:-$(prompt_for_input "Enter PKI key path" "./id_rsa")}
-SUDO_PASSWORD=${3:-$(prompt_for_input "Enter sudo password" "7v65gT-Hpfw4k-SX8PZy")}
+SUDO_PASSWORD=${3:-$(prompt_for_input "Enter sudo password" "")}
 PORT=${4:-$(prompt_for_input "Enter SSH port" "22")}
 
 # Extracting IP address from the username@ip argument
